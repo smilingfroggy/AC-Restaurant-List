@@ -31,7 +31,12 @@ app.get('/search', (req, res) => {
   const storeSearched = restaurantList.results.filter((store) => {
     return store.name.toLowerCase().includes(keyword.toLowerCase()) || store.category.toLowerCase().includes(keyword.toLowerCase())
   })
-  res.render('index', { restaurantIntro: storeSearched, keyword: keyword })
+  console.log(storeSearched)
+  if (storeSearched.length === 0) {
+    res.render('index_noResult')
+  } else {
+    res.render('index', { restaurantIntro: storeSearched, keyword: keyword })
+  }
 })
 
 
