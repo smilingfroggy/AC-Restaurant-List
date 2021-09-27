@@ -48,10 +48,14 @@ app.get('/restaurants/:storeID', (req, res) => {
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
   console.log('keyword: ' + keyword)
-  RestaurantList.find({ name: { $regex: keyword, $options: 'i' } })
+  RestaurantList.find({
+    $or: [{ name: { $regex: keyword, $options: 'i' } },
+    { name_en: { $regex: keyword, $options: 'i' } },
+    { location: { $regex: keyword, $options: 'i' } },
+    { category: { $regex: keyword, $options: 'i' } }]
+  })
     .lean()
     .then(storeSearched => {
-      console.log(storeSearched)
       if (storeSearched.length === 0) {
         res.render('index_noResult')
       } else {
