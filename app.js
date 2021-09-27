@@ -38,7 +38,7 @@ app.get('/restaurants/:storeID', (req, res) => {
   // const storeInfo = restaurantList.results.find((store) => {
   //   return store.id.toString() === req.params.storeID
   // })
-  RestaurantList.findById(req.params.storeID) 
+  RestaurantList.findById(req.params.storeID)
     .lean()
     .then(storeInfo => res.render('show', { storeInfo }))
     .catch(error => { console.error(error) })
@@ -47,28 +47,19 @@ app.get('/restaurants/:storeID', (req, res) => {
 // 3. search result 搜尋結果
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
-  const storeSearched = restaurantList.results.filter((store) => {
-    return store.name.toLowerCase().includes(keyword.toLowerCase()) || store.category.toLowerCase().includes(keyword.toLowerCase())
-  })
-  console.log(storeSearched)
-  ///////
   console.log('keyword: ' + keyword)
-
-  // RestaurantList.find({ name: keyword }) 
-  // // tODO: toLowerCase()、擴大範圍 待讓RestaurantList也toLowerCase
-  // RestaurantList.find({ name: keyword })
-  //   .lean()
-  //   .then(storeSearched => {
+  RestaurantList.find({ name: { $regex: keyword, $options: 'i' } })
+    .lean()
+    .then(storeSearched => {
       console.log(storeSearched)
       if (storeSearched.length === 0) {
         res.render('index_noResult')
       } else {
         res.render('index', { restaurantIntro: storeSearched, keyword: keyword })
       }
-    // })
-    // .catch(error => console.error(error))
+    })
+    .catch(error => console.error(error))
 })
-
 
 app.listen(port, () => {
   console.log(`Express is listening at localhost:${port}`)
