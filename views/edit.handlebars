@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row my-5">
+    <div class="col-12 col-md-10 mx-auto">
+
+      <form action="/restaurants/edit/{{storeInfo._id}}" method="POST">
+        <label for="name">餐廳名稱：</label>
+        <input class="form-control mb-2" type="text" id="name" placeholder="{{storeInfo.name}}"
+          value="{{storeInfo.name}}" name="name">
+
+        <label for="name_en">餐廳英文名稱：</label>
+        <input class="form-control mb-2" type="text" id="name_en" placeholder="{{storeInfo.name_en}}"
+          value="{{storeInfo.name_en}}" name="name_en">
+
+        <div class="form-group">
+          <label for="category">類別：</label>
+          <input list="category" class="form-control" placeholder="{{storeInfo.category}}"
+            value="{{storeInfo.category}}" name="category">
+          <datalist id="category">
+            <option value="義式餐廳">義式餐廳</option>
+            <option value="中東料理">中東料理</option>
+            <option value="日本料理">日本料理</option>
+            <option value="美式">美式</option>
+            <option value="酒吧">酒吧</option>
+            <option value="咖啡">咖啡</option>
+          </datalist>
+        </div>
+
+        <label for="location">地址：</label>
+        <input class="form-control mb-2" type="text" id="location" placeholder="{{storeInfo.location}}"
+          value="{{storeInfo.location}}" name="location">
+
+        <label for="google_map">Google Map 網址</label>
+        <input class="form-control mb-2" type="text" id="google_map" placeholder="{{storeInfo.google_map}}"
+          value="{{storeInfo.google_map}}" name="google_map">
+
+        <label for="phone">電話：</label>
+        <input class="form-control mb-2" type="text" id="phone" placeholder="{{storeInfo.phone}}"
+          value="{{storeInfo.phone}}" name="phone">
+
+        <label for="rating">評分</label>
+        <input class="form-control mb-2" type="text" id="rating" placeholder="{{storeInfo.rating}}"
+          value="{{storeInfo.rating}}" name="rating">
+
+        <label for="description">介紹：</label>
+        <textarea class="form-control mb-2" type="text" id="description" placeholder="{{storeInfo.description}}"
+          value="{{storeInfo.description}}" name="description">{{storeInfo.description}}</textarea>
+
+        <label for="image">代表圖片 URL：</label>
+        <input class="form-control mb-5" type="text" id="image" placeholder="{{storeInfo.image}}"
+          value="{{storeInfo.image}}" name="image">
+
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a class="btn btn-secondary" href="/">Back</a>
+      </form>
+
+
+      <img class="rounded mx-auto d-block my-4 w-100" src="{{storeInfo.image}}" alt="{{storeInfo.name}}"
+        style="max-width: 600px;">
+    </div>
+  </div>
+</div>

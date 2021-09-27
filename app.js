@@ -33,18 +33,37 @@ app.get('/', (req, res) => {
     .catch(error => { console.error(error) })
 })
 
-// 2. show 特定餐廳
+// 2. create new restaurant -- 要放在3. show 特定餐廳前面，new才不會被判斷為:storeID
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  console.log('to create new store: ' + name)
+  RestaurantList.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+    .then(() => res.redirect('/'))
+    .catch(error => { console.error(error) })
+})
+
+// 3. show 特定餐廳
 app.get('/restaurants/:storeID', (req, res) => {
-  // const storeInfo = restaurantList.results.find((store) => {
-  //   return store.id.toString() === req.params.storeID
-  // })
   RestaurantList.findById(req.params.storeID)
     .lean()
     .then(storeInfo => res.render('show', { storeInfo }))
     .catch(error => { console.error(error) })
 })
 
-// 3. search result 搜尋結果
+// 4. search result 搜尋結果
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
   console.log('keyword: ' + keyword)
@@ -64,6 +83,46 @@ app.get('/search', (req, res) => {
     })
     .catch(error => console.error(error))
 })
+
+// 5. edit restaurant
+app.get('/restaurants/edit/:storeID', (req, res) => {
+  console.log('edit info, storeID:' + req.params.storeID)
+  RestaurantList.findById(req.params.storeID)
+    .lean()
+    .then(storeInfo => res.render('edit', { storeInfo }))
+    .catch(error => { console.error(error) })
+})
+
+
+app.post('/restaurants/edit/:storeID', (req, res) => {
+  console.log('save edited info, storeID:' + req.params.storeID)
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  RestaurantList.findById(req.params.storeID)
+    .then(storeInfo => {
+      storeInfo.name = name
+      storeInfo.name_en = name_en
+      storeInfo.category = category
+      storeInfo.image = image
+      storeInfo.location = location
+      storeInfo.phone = phone
+      storeInfo.google_map = google_map
+      storeInfo.rating = rating
+      storeInfo.description = description
+      return storeInfo.save()
+    })
+    .then(() => { res.redirect(`/restaurants/${req.params.storeID}`) })
+    .catch(error => { console.error(error) })
+})
+
+
 
 app.listen(port, () => {
   console.log(`Express is listening at localhost:${port}`)

@@ -23,26 +23,39 @@
       <div class="card-columns">
 
         {{#each restaurantIntro}}
-        <a href="/restaurants/{{this._id}}" class="text-secondary">
-          <div class="card mb-3">
-            <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}"">
+
+        <div class="card mb-3">
+          <a href="/restaurants/{{this._id}}" class="text-secondary">
+            <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
             <div class=" card-body p-3">
-            <h6 class="card-title mb-1">{{this.name}}</h6>
+              <h6 class="card-title mb-1">{{this.name}}</h6>
 
-            <div class="restaurant-category mb-1">
-              <i class="fas fa-utensils pr-2"></i>{{this.category}}
+              <div class="restaurant-category mb-1">
+                <i class="fas fa-utensils pr-2"></i>{{this.category}}
+              </div>
+
+              <span class="badge badge-pill badge-danger font-weight-normal">
+                {{this.rating}}
+                <i class="fas fa-star fa-xs"></i>
+              </span>
             </div>
+          </a>
 
-            <span class="badge badge-pill badge-danger font-weight-normal">
-              {{this.rating}}
-              <i class="fas fa-star fa-xs"></i>
-            </span>
+          <div class="card-footer d-flex justify-content-end">
+            <a href="/restaurants/edit/{{this._id}}" class="btn btn-light btn-sm" role="button"><i
+                class="fas fa-pen fa-xs"></i></a>
+
+            <a href="/restaurants/{{this._id}}" class="btn btn btn-light btn-sm" role="button"> <i
+                class="fas fa-info"></i> </a>
+
+            <a href="" class="btn btn btn-light btn-sm" role="button"><i class="far fa-trash-alt"></i></a>
           </div>
-      </div>
-      </a>
-      {{/each}}
+        </div>
 
+
+        {{/each}}
+
+      </div>
     </div>
   </div>
-</div>
 </div>
