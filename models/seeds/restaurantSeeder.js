@@ -10,8 +10,6 @@ db.on('error', () => {
   console.log('Fail to connect to mongodb!')
 })
 
-console.log(restaurantSeeder.results[1].name)
-
 db.once('open', () => {
   console.log('mongodb connected')
   for (let i = 0; i < restaurantSeeder.results.length; i++) {
