@@ -100,3 +100,32 @@ header {
   }
   
 }
+
+/* ADD */
+
+.requiredInput {
+  color:#9b4b4b;
+}
+
+.invalid-feedback, .valid-feedback {
+  display: none;
+  font-size: 0.8em;
+}
+.invalid-feedback {
+  color: red
+}
+.valid-feedback {
+  color: green
+}
+
+form.was-validated input:invalid {
+border-bottom: 1px solid red;
+}
+form.was-validated input:valid {
+border-bottom: 1px solid green;
+}
+
+form.was-validated .form-control:invalid ~ .invalid-feedback,
+form.was-validated .form-control:valid ~ .valid-feedback {
+  display: initial; /* 顯示 */
+}

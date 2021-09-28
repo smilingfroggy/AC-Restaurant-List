@@ -2,17 +2,20 @@
   <div class="row my-5">
     <div class="col-12 col-md-10 mx-auto">
 
-      <form action="/restaurants/edit/{{storeInfo._id}}" method="POST">
-        <label for="name">餐廳名稱：</label>
+      <form action="/restaurants/edit/{{storeInfo._id}}" method="POST" id="form">
+        <label for="name">餐廳名稱：</label><span class="requiredInput">*</span>
         <input class="form-control mb-2" type="text" id="name" placeholder="{{storeInfo.name}}"
-          value="{{storeInfo.name}}" name="name">
+          value="{{storeInfo.name}}" name="name" required>
+        <div class="invalid-feedback">
+          Please provide a restaurant name.
+        </div>
 
         <label for="name_en">餐廳英文名稱：</label>
         <input class="form-control mb-2" type="text" id="name_en" placeholder="{{storeInfo.name_en}}"
           value="{{storeInfo.name_en}}" name="name_en">
 
         <div class="form-group">
-          <label for="category">類別：</label>
+          <label for="category">類別：</label><span class="requiredInput">*</span>
           <input list="category" class="form-control" placeholder="{{storeInfo.category}}"
             value="{{storeInfo.category}}" name="category">
           <datalist id="category">
@@ -25,21 +28,21 @@
           </datalist>
         </div>
 
-        <label for="location">地址：</label>
+        <label for="location">地址：</label><span class="requiredInput">*</span>
         <input class="form-control mb-2" type="text" id="location" placeholder="{{storeInfo.location}}"
-          value="{{storeInfo.location}}" name="location">
+          value="{{storeInfo.location}}" name="location" required>
 
         <label for="google_map">Google Map 網址</label>
         <input class="form-control mb-2" type="text" id="google_map" placeholder="{{storeInfo.google_map}}"
           value="{{storeInfo.google_map}}" name="google_map">
 
-        <label for="phone">電話：</label>
-        <input class="form-control mb-2" type="text" id="phone" placeholder="{{storeInfo.phone}}"
-          value="{{storeInfo.phone}}" name="phone">
+        <label for="phone">電話：</label><span class="requiredInput">*</span>
+        <input class="form-control mb-2" type="tel" id="phone" placeholder="{{storeInfo.phone}}"
+          value="{{storeInfo.phone}}" name="phone" inputmode="number" required>
 
         <label for="rating">評分</label>
-        <input class="form-control mb-2" type="text" id="rating" placeholder="{{storeInfo.rating}}"
-          value="{{storeInfo.rating}}" name="rating">
+        <input class="form-control mb-2" type="number" id="rating" placeholder="{{storeInfo.rating}}"
+          value="{{storeInfo.rating}}" name="rating" max='5.0' min='1.0' step="0.1">
 
         <label for="description">介紹：</label>
         <textarea class="form-control mb-2" type="text" id="description" placeholder="{{storeInfo.description}}"
@@ -47,10 +50,10 @@
 
         <label for="image">代表圖片 URL：</label>
         <input class="form-control mb-5" type="text" id="image" placeholder="{{storeInfo.image}}"
-          value="{{storeInfo.image}}" name="image">
+          value="{{storeInfo.image}}" name="image" inputmode="url">
 
 
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-success" id="submitBtn">Save</button>
         <a class="btn btn-secondary" href="/">Back</a>
       </form>
 
