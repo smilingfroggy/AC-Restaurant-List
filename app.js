@@ -93,7 +93,6 @@ app.get('/restaurants/edit/:storeID', (req, res) => {
     .catch(error => { console.error(error) })
 })
 
-
 app.post('/restaurants/edit/:storeID', (req, res) => {
   console.log('save edited info, storeID:' + req.params.storeID)
   const name = req.body.name
@@ -122,7 +121,14 @@ app.post('/restaurants/edit/:storeID', (req, res) => {
     .catch(error => { console.error(error) })
 })
 
-
+// 6. delete restaurant
+app.post('/restaurants/delete/:storeID', (req, res) => {
+  console.log('delete storeID:' + req.params.storeID)
+  RestaurantList.findById(req.params.storeID)
+    .then(storeInfo => storeInfo.remove())
+    .then(res.redirect('/'))
+    .catch(error => { console.error(error) })
+})
 
 app.listen(port, () => {
   console.log(`Express is listening at localhost:${port}`)

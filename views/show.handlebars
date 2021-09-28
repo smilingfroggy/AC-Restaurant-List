@@ -1,7 +1,7 @@
 <h1 class="mb-1 restaurant-show-title">{{storeInfo.name}}</h1>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-10 mx-auto">
+    <div class="col-12 col-md-10 m-auto">
 
       <p class="mb-1">
         <span class="text-secondary">
@@ -36,6 +36,20 @@
 
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{storeInfo.image}}" alt="{{storeInfo.name}}"
         style="max-width: 600px;">
+
+      <div class="d-flex justify-content-center mb-5">
+        <a href="/restaurants/edit/{{storeInfo._id}}" class="btn btn-light btn-lg" role="button"><i
+            class="fas fa-pen fa-xs"></i></a>
+
+        {{!-- <a href="/restaurants/delete/{{storeInfo._id}}" class="btn btn btn-light btn-lg" role="button"><i
+            class="far fa-trash-alt"></i></a> --}}
+        <form onsubmit="confirm(' Are you sure you want to delete {{storeInfo.name}}? ')"
+          action="/restaurants/delete/{{storeInfo._id}}" method="post">
+          <button type="submit" class="btn btn-light btn-lg"><i class="far fa-trash-alt"></i>
+          </button>
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
