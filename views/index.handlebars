@@ -48,7 +48,7 @@
             <a href="/restaurants/{{this._id}}" class="btn btn-light btn-sm" role="button"> <i class="fas fa-info"></i>
             </a>
 
-            <form onsubmit="confirm(' Are you sure you want to delete {{this.name}}? ')"
+            <form onsubmit="return confirm(' Are you sure you want to delete {{this.name}}? ')"
               action="/restaurants/delete/{{ this._id }}" method="post">
               <button class="btn btn-light btn-sm" type="submit"><i class="far fa-trash-alt"></i></a>
             </form>
