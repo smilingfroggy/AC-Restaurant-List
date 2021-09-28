@@ -112,17 +112,17 @@ header {
   font-size: 0.8em;
 }
 .invalid-feedback {
-  color: red
+  color: red;
 }
 .valid-feedback {
-  color: green
+  color: green;
 }
 
 form.was-validated input:invalid {
-border-bottom: 1px solid red;
+  border-bottom: 1px solid red;
 }
 form.was-validated input:valid {
-border-bottom: 1px solid green;
+  border-bottom: 1px solid green;
 }
 
 form.was-validated .form-control:invalid ~ .invalid-feedback,

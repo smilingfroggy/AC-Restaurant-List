@@ -2,22 +2,26 @@
   <div class="row my-5">
     <div class="col-12 col-md-10 mx-auto">
 
-      <form action="/restaurants/edit/{{storeInfo._id}}" method="POST" id="form">
-        <label for="name">餐廳名稱：</label><span class="requiredInput">*</span>
-        <input class="form-control mb-2" type="text" id="name" placeholder="{{storeInfo.name}}"
-          value="{{storeInfo.name}}" name="name" required>
-        <div class="invalid-feedback">
-          Please provide a restaurant name.
+      <form action="/restaurants/edit/{{storeInfo._id}}" method="POST" id="form" novalidate>
+        <div class="form-group">
+          <label for="name">餐廳名稱：</label><span class="requiredInput">*</span>
+          <input class="form-control mb-2" type="text" id="name" placeholder="{{storeInfo.name}}"
+            value="{{storeInfo.name}}" name="name" required>
+          <div class="invalid-feedback">
+            Please provide a restaurant name.
+          </div>
         </div>
 
-        <label for="name_en">餐廳英文名稱：</label>
-        <input class="form-control mb-2" type="text" id="name_en" placeholder="{{storeInfo.name_en}}"
-          value="{{storeInfo.name_en}}" name="name_en">
+        <div class="form-group">
+          <label for="name_en">餐廳英文名稱：</label>
+          <input class="form-control mb-2" type="text" id="name_en" placeholder="{{storeInfo.name_en}}"
+            value="{{storeInfo.name_en}}" name="name_en">
+        </div>
 
         <div class="form-group">
           <label for="category">類別：</label><span class="requiredInput">*</span>
           <input list="category" class="form-control" placeholder="{{storeInfo.category}}"
-            value="{{storeInfo.category}}" name="category">
+            value="{{storeInfo.category}}" name="category" required>
           <datalist id="category">
             <option value="義式餐廳">義式餐廳</option>
             <option value="中東料理">中東料理</option>
@@ -28,29 +32,44 @@
           </datalist>
         </div>
 
-        <label for="location">地址：</label><span class="requiredInput">*</span>
-        <input class="form-control mb-2" type="text" id="location" placeholder="{{storeInfo.location}}"
-          value="{{storeInfo.location}}" name="location" required>
+        <div class="form-group">
+          <label for="location">地址：</label><span class="requiredInput">*</span>
+          <input class="form-control mb-2" type="text" id="location" placeholder="{{storeInfo.location}}"
+            value="{{storeInfo.location}}" name="location" required>
+        </div>
 
-        <label for="google_map">Google Map 網址</label>
-        <input class="form-control mb-2" type="text" id="google_map" placeholder="{{storeInfo.google_map}}"
-          value="{{storeInfo.google_map}}" name="google_map">
+        <div class="form-group">
+          <label for="google_map">Google Map 網址</label><span class="requiredInput">*</span>
+          <input class="form-control mb-2" type="text" id="google_map" placeholder="{{storeInfo.google_map}}"
+            value="{{storeInfo.google_map}}" name="google_map" required>
+        </div>
 
-        <label for="phone">電話：</label><span class="requiredInput">*</span>
-        <input class="form-control mb-2" type="tel" id="phone" placeholder="{{storeInfo.phone}}"
-          value="{{storeInfo.phone}}" name="phone" inputmode="number" required>
+        <div class="form-group">
+          <label for="phone">電話：</label><span class="requiredInput">*</span>
+          <input class="form-control mb-2" type="tel" id="phone" placeholder="{{storeInfo.phone}}"
+            value="{{storeInfo.phone}}" name="phone" inputmode="number" minlength="10" required>
+        </div>
+        <div class="invalid-feedback">
+          Please enter valid phone number.
+        </div>
 
-        <label for="rating">評分</label>
-        <input class="form-control mb-2" type="number" id="rating" placeholder="{{storeInfo.rating}}"
-          value="{{storeInfo.rating}}" name="rating" max='5.0' min='1.0' step="0.1">
+        <div class="form-group">
+          <label for="rating">評分</label>
+          <input class="form-control mb-2" type="number" id="rating" placeholder="{{storeInfo.rating}}"
+            value="{{storeInfo.rating}}" name="rating" max='5.0' min='1.0' step="0.1">
+        </div>
 
-        <label for="description">介紹：</label>
-        <textarea class="form-control mb-2" type="text" id="description" placeholder="{{storeInfo.description}}"
-          value="{{storeInfo.description}}" name="description">{{storeInfo.description}}</textarea>
+        <div class="form-group">
+          <label for="description">介紹：</label>
+          <textarea class="form-control mb-2" type="text" id="description" placeholder="{{storeInfo.description}}"
+            value="{{storeInfo.description}}" name="description">{{storeInfo.description}}</textarea>
+        </div>
 
-        <label for="image">代表圖片 URL：</label>
-        <input class="form-control mb-5" type="text" id="image" placeholder="{{storeInfo.image}}"
-          value="{{storeInfo.image}}" name="image" inputmode="url">
+        <div class="form-group">
+          <label for="image">代表圖片 URL：</label><span class="requiredInput">*</span>
+          <input class="form-control mb-5" type="text" id="image" placeholder="{{storeInfo.image}}"
+            value="{{storeInfo.image}}" name="image" inputmode="url" required>
+        </div>
 
 
         <button type="submit" class="btn btn-success" id="submitBtn">Save</button>
@@ -63,3 +82,14 @@
     </div>
   </div>
 </div>
+
+<script>
+  const form = document.querySelector('#form')
+  form.addEventListener('submit', function onSubmitClicked(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    form.classList.add('was-validated')
+  })
+</script>
