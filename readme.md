@@ -1,10 +1,12 @@
 # Restaurant List
-A simple web application for people to show and search restaurants with names or category
+A simple web application for people to show, create, edit, delete restaurants infos, in addition, searching restaurants with names or categories is also available.
 
 ### Features
-- listing restaurants with pictures, names, category, and ratings
+- listing all restaurants with pictures, names, category, and ratings
 - searching restaurants by name or category
 - selecting restaurant to get more details
+- creating new restaurants
+- editing and deleting restaurants infos
 
 ### How to use?
 1. Clone this repository with terminal:
@@ -12,11 +14,15 @@ A simple web application for people to show and search restaurants with names or
 
 2. Install packages:```$ npm install ```
 
-3. Run it ```$ npm run dev```
+3. Insert restaurants seeder ```$ npm run seed```
 
-4. View the website at: http://localhost:3000
+4. Run it ```$ npm run dev```
+
+5. View the website at: http://localhost:3000
 
 ### Environment
 - Node.js
 - Express.js
 - Express-handlebars
+- MongoDB
+- Mongoose
