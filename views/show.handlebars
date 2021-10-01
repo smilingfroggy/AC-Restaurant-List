@@ -44,7 +44,7 @@
         {{!-- <a href="/restaurants/delete/{{storeInfo._id}}" class="btn btn btn-light btn-lg" role="button"><i
             class="far fa-trash-alt"></i></a> --}}
         <form onsubmit="return confirm(' Are you sure you want to delete {{storeInfo.name}}? ')"
-          action="/restaurants/delete/{{storeInfo._id}}" method="post">
+          action="/restaurants/{{storeInfo._id}}?_method=DELETE" method="post">
           <button type="submit" class="btn btn-light btn-lg"><i class="far fa-trash-alt"></i>
           </button>
         </form>

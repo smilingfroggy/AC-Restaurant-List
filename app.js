@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const RestaurantList = require('./models/restaurants')
+const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
 const port = 3000
 
@@ -23,12 +24,13 @@ app.set('view engine', 'handlebars')
 // static files
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+// method-override
+app.use(methodOverride('_method'))
 
 // router setting
 // 1. index 首頁
 app.get('/', (req, res) => {
   const sort = req.query.sort
-  console.log(sort)
   // switch不太適用，因不一定有sort值
   if (sort === "asc" || sort === "desc") {
     RestaurantList.find()
@@ -116,7 +118,7 @@ app.get('/restaurants/edit/:storeID', (req, res) => {
     .catch(error => { console.error(error) })
 })
 
-app.post('/restaurants/edit/:storeID', (req, res) => {
+app.put('/restaurants/:storeID', (req, res) => {
   console.log('save edited info, storeID:' + req.params.storeID)
   const name = req.body.name
   const name_en = req.body.name_en
@@ -145,7 +147,7 @@ app.post('/restaurants/edit/:storeID', (req, res) => {
 })
 
 // 6. delete restaurant
-app.post('/restaurants/delete/:storeID', (req, res) => {
+app.delete('/restaurants/:storeID', (req, res) => {
   console.log('delete storeID:' + req.params.storeID)
   RestaurantList.findById(req.params.storeID)
     .then(storeInfo => storeInfo.remove())
