@@ -1,9 +1,10 @@
 # Restaurant List
-A simple web application for people to show, create, edit, delete restaurants infos, in addition, searching restaurants with names or categories is also available.
+A simple web application for people to show, create, edit, delete restaurants infos, in addition, sorting and searching restaurants with names or categories are also available.
 
 ### Features
 - listing all restaurants with pictures, names, category, and ratings
 - searching restaurants by name or category
+- sorting restaurants by name, category, or location
 - selecting restaurant to get more details
 - creating new restaurants
 - editing and deleting restaurants infos
