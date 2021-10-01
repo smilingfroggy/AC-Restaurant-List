@@ -27,10 +27,33 @@ app.use(express.urlencoded({ extended: true }))
 // router setting
 // 1. index 首頁
 app.get('/', (req, res) => {
-  RestaurantList.find() //為何不用return?
-    .lean()
-    .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
-    .catch(error => { console.error(error) })
+  const sort = req.query.sort
+  console.log(sort)
+  // switch不太適用，因不一定有sort值
+  if (sort === "asc" || sort === "desc") {
+    RestaurantList.find()
+      .lean()
+      .sort({ 'name': sort })
+      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
+      .catch(error => { console.error(error) })
+  } else if (sort === "cat") {
+    RestaurantList.find()
+      .lean()
+      .sort({ category: 'asc' })
+      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
+      .catch(error => { console.error(error) })
+  } else if (sort === "loc") {
+    RestaurantList.find()
+      .lean()
+      .sort({ location: 'asc' })
+      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
+      .catch(error => { console.error(error) })
+  } else {
+    RestaurantList.find() //為何不用return?
+      .lean()
+      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
+      .catch(error => { console.error(error) })
+  }
 })
 
 // 2. create new restaurant -- 要放在3. show 特定餐廳前面，new才不會被判斷為:storeID
