@@ -1,17 +1,9 @@
-const mongoose = require('mongoose')
 const RestaurantList = require('../restaurants')
 const restaurantSeeder = require('../../restaurant.json')
-mongoose.connect('mongodb://localhost/restaurant-list')
 
-const db = mongoose.connection
-
-// 確認連線狀態
-db.on('error', () => {
-  console.log('Fail to connect to mongodb!')
-})
+const db = require('../../config/mongoose')
 
 db.once('open', () => {
-  console.log('mongodb connected')
   for (let i = 0; i < restaurantSeeder.results.length; i++) {
     RestaurantList.create({
       name: restaurantSeeder.results[i].name,
@@ -25,4 +17,5 @@ db.once('open', () => {
       description: restaurantSeeder.results[i].description
     })
   }
+  console.log('Done')
 })
