@@ -4,32 +4,11 @@ const RestaurantList = require('../../models/restaurants')
 
 // 1. index 首頁
 router.get('/', (req, res) => {
-  const sort = req.query.sort
+  RestaurantList.find()
+    .lean()
+    .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
+    .catch(error => { console.error(error) })
 
-  if (sort === "asc" || sort === "desc") {
-    RestaurantList.find()
-      .lean()
-      .sort({ 'name': sort })
-      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
-      .catch(error => { console.error(error) })
-  } else if (sort === "cat") {
-    RestaurantList.find()
-      .lean()
-      .sort({ category: 'asc' })
-      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
-      .catch(error => { console.error(error) })
-  } else if (sort === "loc") {
-    RestaurantList.find()
-      .lean()
-      .sort({ location: 'asc' })
-      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
-      .catch(error => { console.error(error) })
-  } else {
-    RestaurantList.find()
-      .lean()
-      .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
-      .catch(error => { console.error(error) })
-  }
 })
 
 
@@ -51,6 +30,23 @@ router.get('/search', (req, res) => {
         res.render('index', { restaurantIntro: storeSearched, keyword: keyword })
       }
     })
+    .catch(error => console.error(error))
+})
+
+// 3. sort 
+router.put('/sort', (req, res) => {
+  const sort = req.body.sort
+  const sortOptions = {
+    asc: { name: 'asc' },
+    desc: { name: 'desc' },
+    cat: { category: 'asc' },
+    loc: { location: 'asc' }
+  }
+  console.log('sortOptions: ', sortOptions[sort])
+  RestaurantList.find()
+    .lean()
+    .sort(sortOptions[sort])
+    .then(restaurantIntro => { res.render('index', { restaurantIntro }) })
     .catch(error => console.error(error))
 })
 
