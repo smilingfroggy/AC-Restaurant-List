@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 // 與資料庫連線
-mongoose.connect('mongodb://localhost/restaurant-list')
+mongoose.connect('mongodb://localhost/restaurant-list-auth')
 
 const db = mongoose.connection
 db.on('error', () => {
