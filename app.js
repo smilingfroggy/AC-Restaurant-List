@@ -6,6 +6,7 @@ const routes = require('./routes')
 const RestaurantList = require('./models/restaurants')
 const methodOverride = require('method-override')
 const exphbs = require('express-handlebars')
+const users = require('./models/users')
 const port = 3000
 
 require('./config/mongoose')
@@ -17,6 +18,13 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
+
+// pass isAuthenticated & user info from req to res
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 // template engine setting
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
