@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 const Users = require('../../models/users')
 
 router.get('/login', (req, res) => {
@@ -28,25 +29,28 @@ router.post('/register', (req, res) => {
   const errors = []
   if (!email || !password || !confirmPassword) {
     console.log('請輸入所有必填欄位')
-    errors.push({ message: '請輸入所有必填欄位'})
+    errors.push({ message: '請輸入所有必填欄位' })
   }
   if (password !== confirmPassword) {
     console.log('兩次輸入密碼不同！')
     errors.push({ message: '兩次輸入密碼不同！' })
   }
   if (errors.length) {
-    return res.render('register', { errors, name, email, password, confirmPassword } )
+    return res.render('register', { errors, name, email, password, confirmPassword })
   }
   Users.findOne({ email })
     .then((user) => {
       if (user) {
         console.log('此email已註冊過')
-        errors.push({ message: '此email已註冊過'})
+        errors.push({ message: '此email已註冊過' })
         return res.render('register', { errors, name, email, password, confirmPassword })
       }
 
       // 無任何錯誤，使用者資料寫入資料庫
-      return Users.create({ name, email, password })
+      return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(password, salt))
+        .then(hash => Users.create({ name, email, password: hash }))
         .then(() => {
           console.log(`${name}'s account is created!`)
           res.redirect('/')
