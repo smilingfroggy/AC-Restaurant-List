@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const session = require('express-session')
 const usePassport = require('./config/passport')
+const flash = require('connect-flash')
 const routes = require('./routes')
 const RestaurantList = require('./models/restaurants')
 const methodOverride = require('method-override')
@@ -19,10 +20,14 @@ app.use(session({
 }))
 usePassport(app)
 
+app.use(flash())
+
 // pass isAuthenticated & user info from req to res
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('successful_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 

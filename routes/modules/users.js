@@ -15,6 +15,7 @@ router.post('/login', passport.authenticate('local', {
 router.get('/logout', (req, res) => {
   req.logout()
   console.log('logout')
+  req.flash('successful_msg', '您已成功登出。')
   res.redirect('/users/login')
 })
 
@@ -24,20 +25,24 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
-  //檢查Email是否重複註冊過
+  const errors = []
   if (!email || !password || !confirmPassword) {
     console.log('請輸入所有必填欄位')
-    return res.render('register')
+    errors.push({ message: '請輸入所有必填欄位'})
   }
   if (password !== confirmPassword) {
     console.log('兩次輸入密碼不同！')
-    return res.render('register')
+    errors.push({ message: '兩次輸入密碼不同！' })
+  }
+  if (errors.length) {
+    return res.render('register', { errors, name, email, password, confirmPassword } )
   }
   Users.findOne({ email })
     .then((user) => {
       if (user) {
         console.log('此email已註冊過')
-        return res.render('register', { name, email, password, confirmPassword })
+        errors.push({ message: '此email已註冊過'})
+        return res.render('register', { errors, name, email, password, confirmPassword })
       }
 
       // 無任何錯誤，使用者資料寫入資料庫
