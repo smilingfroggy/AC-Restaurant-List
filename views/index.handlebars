@@ -16,20 +16,24 @@
   </div>
 </div>
 
-{{!-- dropdown 改寫 form/submit/name/value--}}
-<form action="/sort?_method=PUT" method="post" class="dropdown d-flex justify-content-end mt-2 mr-5">
-  <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false">
-    排序方式
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <button type="submit" class="dropdown-item" name="sort" value="asc">A-Z</button>
-    <button type="submit" class="dropdown-item" name="sort" value="desc">Z-A</button>
-    <button type="submit" class="dropdown-item" name="sort" value="cat">類別</button>
-    <button type="submit" class="dropdown-item" name="sort" value="loc">地區</button>
-  </div>
-</form>
+{{!-- Create restaurant or choose sort options --}}
+<div class="container d-flex justify-content-between mt-4">
+  <a class="btn btn-info" href="/restaurants/new">新增餐廳</a>
 
+  {{!-- dropdown 改寫 form/submit/name/value--}}
+  <form action="/sort?_method=PUT" method="post" class="dropdown">
+    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      排序方式
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button type="submit" class="dropdown-item" name="sort" value="asc">A-Z</button>
+      <button type="submit" class="dropdown-item" name="sort" value="desc">Z-A</button>
+      <button type="submit" class="dropdown-item" name="sort" value="cat">類別</button>
+      <button type="submit" class="dropdown-item" name="sort" value="loc">地區</button>
+    </div>
+  </form>
+</div>
 
 <!-- restaurant list -->
 <div class="container mt-5">
@@ -67,25 +71,7 @@
               action="/restaurants/{{ this._id }}?_method=DELETE" method="post">
               <button class="btn btn-light btn-sm" type="submit"><i class="far fa-trash-alt"></i></a>
             </form>
-            {{!-- data-toggle="modal" data-target="#deleteModal" --}}
 
-
-            <!-- Modal -->
-            {{!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Confirm to delete {{this.name}}</h5>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form action="/restaurants/delete/{{ this._id }}" method="post">
-                      <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div> --}}
           </div>
         </div>
 

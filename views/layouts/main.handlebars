@@ -24,6 +24,7 @@
             width="30" height="30" class="d-inline-block align-top" alt="好。吃">
           {{#if isAuthenticated}} {{ user.name }} {{ else }}我{{/if}}的餐廳清單
         </a>
+          
         {{!-- TODO: 依登入登出狀態 改變顯示 login / logout --}}
         {{#if isAuthenticated}}
         <a class="navbar-brand" href="/users/logout">Logout</a>
@@ -32,8 +33,7 @@
         {{/if}}
 
 
-        {{!-- <a class="navbar-brand" href="/restaurants/new"><i class="fas fa-plus-circle mx-1"
-            style="font-size: 30px; color: rgb(28, 72, 112);"></i>新增餐廳</a> --}}
+        
       </div>
     </nav>
 
