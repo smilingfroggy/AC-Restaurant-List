@@ -22,7 +22,10 @@
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
             width="30" height="30" class="d-inline-block align-top" alt="好。吃">
-          {{#if isAuthenticated}} {{ user.name }} {{ else }}我{{/if}}的餐廳清單
+          {{#if isAuthenticated}}
+          {{#if user.name}}{{ user.name }}的餐廳清單 {{else}}我的餐廳清單 {{/if}}
+          {{else}}我的餐廳清單
+          {{/if}}
         </a>
 
         {{!-- 依登入登出狀態 改變顯示 login / logout --}}
