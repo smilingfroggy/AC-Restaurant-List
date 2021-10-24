@@ -24,15 +24,13 @@ const db = require('../../config/mongoose')
 db.once('open', () => {
   Promise.all(Array.from(
     userSeeder, userSeed => {
-      console.log(userSeed)
       return bcrypt
         .genSalt(10)
         .then(salt => bcrypt.hash(userSeed.password, salt))
         .then(hash => Users.create({ email: userSeed.email, password: hash }))
         .then(user => {
           const userId = user._id
-          console.log(userSeed.restaurants) //[ 4, 5, 6 ]
-          const userRestaurants = userSeed.restaurants.map( i => {
+          const userRestaurants = userSeed.restaurants.map(i => {
             restaurantSeeder.results[i].userId = userId
             return restaurantSeeder.results[i]
           })

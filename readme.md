@@ -2,7 +2,7 @@
 A simple web application for users to create, read, update, delete restaurants info, in addition, sorting and searching restaurants with names or categories are also available.
 
 ### Features
-The user can
+Users can
 - register and login with email or Facebook account to create their own restaurant list
 - add new restaurants
 - read all restaurants with pictures, names, category, and ratings
@@ -23,7 +23,16 @@ The user can
 
 5. View the website at: http://localhost:3000
 
-6. Register an account to experience the web app
+6. Register an account or use seeder to login and experience the web app
+
+### Seeder information
+- User1: 
+  Email: user1@example.com
+  Password: 12345678
+
+- User2:
+  Email: user2@example.com 
+  Password: 12345678
 
 ### Packages 
 - Node.js
