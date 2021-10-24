@@ -25,7 +25,7 @@ db.once('open', () => {
   Promise.all(Array.from(
     userSeeder, userSeed => {
       console.log(userSeed)
-      bcrypt
+      return bcrypt
         .genSalt(10)
         .then(salt => bcrypt.hash(userSeed.password, salt))
         .then(hash => Users.create({ email: userSeed.email, password: hash }))
@@ -42,7 +42,7 @@ db.once('open', () => {
   ))
     .then(() => {
       console.log('Done')
-      // process.exit()
+      process.exit()
     })
     .catch(err => console.log(err))
 })
